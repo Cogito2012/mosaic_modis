@@ -5,7 +5,7 @@ close all
 root_dir = 'I:\RSData\MOD09A1_CHINA_JUN2SEP_DAY\code';
 cd(root_dir)
 
-test_data_dir = fullfile(root_dir,'..\test\09-JUN-16-Reproj');
+test_data_dir = fullfile(root_dir,'..\test_rect\09-JUN-16-Reproj');
 cmd_str = ['dir /B ' test_data_dir '\*.tif >' test_data_dir '\imagelist.txt'];
 system(cmd_str);
 imglist = textread(fullfile(test_data_dir,'imagelist.txt'),'%s');
@@ -34,6 +34,7 @@ end
 
 %%
 image_china = zeros(patchsize*ny,patchsize*nx,3);
+slice_num = 0;
 for n=1:size(PatchSets,1)
     fprintf('Process image patch : %d/%d, ',n,size(PatchSets,1));
     box = PatchSets(n,:);
@@ -108,13 +109,13 @@ for n=1:size(PatchSets,1)
     % mosaic china patches
     Row = ceil(n/nx); Col = n-(Row-1)*nx;
     image_china((Row-1)*patchsize+1:Row*patchsize,(Col-1)*patchsize+1:Col*patchsize,:) = img_patch;
-    if mod(n,nx)==0
-        image_china_row = image_china((Row-1)*patchsize+1:Row*patchsize,:,:);
-        imwrite(image_china_row,sprintf('China_MOD09A1_%d.bmp',round(n/nx)));
+    if mod(n,round(0.5*nx*ny))==0 
+        slice_num = slice_num + 1;
+        image_china_row = image_china((Row-0.5*ny)*patchsize+1:Row*patchsize,:,:);
+        imwrite(image_china_row,sprintf('China_MOD09A1_Slice%d.bmp',num2str(slice_num)));
     end
 end
-imwrite(image_china,'China_MOD09A1.bmp');
-imshow(image_china)
+
 
 
 
