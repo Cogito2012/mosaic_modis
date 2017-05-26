@@ -58,7 +58,7 @@ for n=1:size(PatchSets,1)
         [img, R] = geotiffread(fullfile(test_data_dir,imglist{ind}));
         % read geoinfo
         geoinfo = geotiffinfo(fullfile(test_data_dir,imglist{ind}));
-        img_rgb = subsetRGB(img);
+        img_rgb = subsetRGB_envi(img);
         % convert lattitude and longitude to row and column in image
         [r1,c1] = latlon2pix(geoinfo.RefMatrix, box(2), box(1));
         r1 = round(r1); c1 = round(c1);
@@ -70,7 +70,7 @@ for n=1:size(PatchSets,1)
         img_patch = img_rgb(r1:r2-1,c1:c2-1,:);
         time = toc(th);
         fprintf('Inner Patch, time: %.3f s\n',time);
-%         imshow(img_patch)
+%         imshow(img_rgb)
 %         rectbox = [c1,r1,c2-c1+1,r2-r1+1];
 %         imshow(img_rgb)
 %         rectangle('Position',rectbox,'LineWidth',2,'EdgeColor','r');
@@ -93,7 +93,7 @@ for n=1:size(PatchSets,1)
             ind = find(ind==1);
             [img, R] = geotiffread(fullfile(test_data_dir,imglist{ind}));
             geoinfo = geotiffinfo(fullfile(test_data_dir,imglist{ind}));
-            img_rgb = subsetRGB(img);
+            img_rgb = subsetRGB_envi(img);
             for j=1:length(rows)
                 [r,c] = latlon2pix(geoinfo.RefMatrix, Y(rows(j),cols(j)), X(rows(j),cols(j)));
                 r = round(r); c = round(c);

@@ -1,4 +1,8 @@
 
 *.bmp
+*.asv
+
 data/
 mexgdal/
+results/
+results2/
