@@ -1,3 +1,6 @@
 [submodule "lib/pix2pix"]
 	path = lib/pix2pix
 	url = git@github.com:Cogito2012/pix2pix-tf-modis.git
+[submodule "lib/Deep_Image-Analogy"]
+	path = lib/Deep_Image-Analogy
+	url = git@github.com:Cogito2012/Deep-Image-Analogy.git
