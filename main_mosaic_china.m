@@ -1,4 +1,6 @@
 % linux branch 
+% mosaic china map directly from modis data
+
 clc
 clear
 close all

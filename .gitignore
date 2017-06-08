@@ -1,2 +1,4 @@
 pix2pix-tf-modis/
 *.pyc
+*.jpg
+*.gitignore~
